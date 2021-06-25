@@ -103,11 +103,13 @@ public class IntList {
      * * elements of B.  May NOT modify items of A.  Use 'new'.
      */
     public static IntList catenate(IntList A, IntList B) {
+        if(A == null)
+            return B;
         IntList pointerToA = A.rest, Head = null;
         IntList NewList = new IntList(A.first, A.rest);
         Head = NewList;
         while(pointerToA != null){
-            NewList.rest = new IntList(pointerToA.first, pointerToA.rest);
+            NewList.rest = new IntList(pointerToA.first,null);
             NewList = NewList.rest;
             pointerToA = pointerToA.rest;
         }
@@ -261,5 +263,4 @@ public class IntList {
         return out.toString();
     }
 }
-
 
