@@ -75,14 +75,27 @@ public class IntList {
     /** DO NOT MODIFY ANYTHING ABOVE THIS LINE! */
 
 
+   // I write them
+    public IntList get(int i){
+        if(i == 0)
+            return this;
+        return rest.get(i-1);
+    }
+    public int size(){
+        if(rest == null)
+            return 1;
+        return (1 + rest.size());
+    }
     /**
      * Returns a list consisting of the elements of A followed by the
      * *  elements of B.  May modify items of A. Don't use 'new'.
      */
-
     public static IntList dcatenate(IntList A, IntList B) {
-        //TODO:  fill in method
-        return null;
+        if(A == null)
+            return B;
+        IntList aTail = A.get(A.size()-1);//notice about that;
+        aTail.rest = B;
+        return A;
     }
 
     /**
@@ -90,11 +103,28 @@ public class IntList {
      * * elements of B.  May NOT modify items of A.  Use 'new'.
      */
     public static IntList catenate(IntList A, IntList B) {
-        //TODO:  fill in method
-        return null;
+        IntList pointerToA = A.rest, Head = null;
+        IntList NewList = new IntList(A.first, A.rest);
+        Head = NewList;
+        while(pointerToA != null){
+            NewList.rest = new IntList(pointerToA.first, pointerToA.rest);
+            NewList = NewList.rest;
+            pointerToA = pointerToA.rest;
+        }
+        NewList.rest = B;
+        return Head;
     }
 
 
+
+
+    public static void main(String[] args){
+        IntList head = new IntList(10, null);
+        IntList lst = head;
+        lst = new IntList(20, lst);
+        lst = new IntList(30, lst);
+        System.out.println(lst.get(1).first);
+    }
 
 
 
@@ -231,4 +261,5 @@ public class IntList {
         return out.toString();
     }
 }
+
 
