@@ -32,7 +32,7 @@ public class NBody {
         StdDraw.setScale(-radius, radius);
         StdDraw.picture(0,0,setting);
         for(Planet P : planets){
-            P.imgFileName = "images/"+P.imgFileName;
+
             P.draw();
         }
         StdDraw.enableDoubleBuffering();
@@ -40,6 +40,7 @@ public class NBody {
         while(time < T){
             double[] xForces = new double[]{0,0,0,0,0};
             double[] yForces = new double[]{0,0,0,0,0};
+            /*
             for(int i = 0; i < 5; ++i){
                 for(int j = 0; j < 5; ++j){
                     xForces[i] += planets[i].calcForceExertedByX(planets[j]);
@@ -47,6 +48,15 @@ public class NBody {
                 }
 
             }
+            
+             */
+
+            for(int i = 0; i < 5; ++i){
+                xForces[i] = planets[i].calcNetForceExertedByX(planets);
+                yForces[i] = planets[i].calcNetForceExertedByY(planets);
+            }
+
+
             for(int i = 0; i < 5; ++i)
                 planets[i].update(dt,xForces[i],yForces[i]);
             StdDraw.picture(0,0,setting);
