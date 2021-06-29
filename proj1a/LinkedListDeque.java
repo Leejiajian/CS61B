@@ -39,7 +39,7 @@ public class LinkedListDeque<T> {
     }
     public void print(TNode p){
         if(p != sentinel)
-            System.out.println(p.item + " ");
+            System.out.print(p.item + " ");
         else
             return;
         print(p.next);
@@ -81,6 +81,7 @@ public class LinkedListDeque<T> {
             return null;
         return point.item;
     }
+    //may be some problems
     private TNode get(TNode p, int index){
         if(p == sentinel)
             return null;
