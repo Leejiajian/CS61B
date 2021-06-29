@@ -116,11 +116,12 @@ public class ArrayDeque<T> {
     public T get(int index){
         if(isEmpty())
             return null;
-        if(nextLast > nextFirst && (index <= nextFirst || index >= nextLast))
+        int dequeIndex = (nextFirst + index + 1) % arraySize;
+        if(nextFirst < nextLast && (dequeIndex <= nextFirst || dequeIndex >= nextLast))
             return null;
-        if(nextFirst > nextFirst && (index >= nextLast || index <= nextFirst))
+        if(nextLast < nextFirst && (dequeIndex >= nextFirst && dequeIndex <= nextLast))
             return null;
-        return items[(nextFirst + index + 1) % arraySize];
+        return items[dequeIndex];
     }
 
 

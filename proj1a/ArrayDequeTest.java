@@ -9,7 +9,7 @@ public class ArrayDequeTest {
         System.out.println(DDeque.isEmpty());
         */
         //error example
-
+        /*
         DDeque.addFirst(0);
         DDeque.addFirst(1);
         DDeque.removeLast();
@@ -18,7 +18,7 @@ public class ArrayDequeTest {
         DDeque.addFirst(5);
         DDeque.addFirst(6);
         DDeque.removeLast();
-        /*
+        //another error example
         DDeque.isEmpty();
         DDeque.isEmpty();
         DDeque.addLast(2);
@@ -31,6 +31,15 @@ public class ArrayDequeTest {
         DDeque.removeLast();
 
          */
+        DDeque.addFirst(0);
+        DDeque.get(0);
+        DDeque.get(0);
+        DDeque.removeLast();
+        DDeque.addLast(4);
+        DDeque.addLast(5);
+        DDeque.removeFirst();
+        DDeque.get(0);
+        System.out.println(DDeque.get(0));
     }
 
 }
