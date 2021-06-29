@@ -95,6 +95,8 @@ public class ArrayDeque<T> {
         nextFirst = (nextFirst + 1) % arraySize;
         T item = items[nextFirst];
         loadingRadio = size()/(double)arraySize;
+        if(loadingRadio == 0)
+            nextLast = (nextLast - 1 + arraySize) % arraySize;
         if(arraySize > INITIAL_SIZE && loadingRadio < 0.25)
             resize((int)(0.5 * arraySize));
         return item;
@@ -105,6 +107,8 @@ public class ArrayDeque<T> {
         nextLast = (nextLast - 1) % arraySize;
         T item = items[nextLast];
         loadingRadio = size()/(double)arraySize;
+        if(loadingRadio == 0)
+            nextLast = (nextLast - 1 + arraySize) % arraySize;
         if(arraySize > INITIAL_SIZE && loadingRadio < 0.25)
             resize((int)(0.5 * arraySize));
         return item;
