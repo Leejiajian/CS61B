@@ -37,8 +37,12 @@ public class ArrayDeque<T> {
             nextFirst = capacity - 1;
             arraySize = capacity;
         }
-        else
+        else{
             arraySize = capacity;
+            nextFirst = nextLast = 0;
+            loadingRadio = 0;
+        }
+
         items = a;
     }
     /*
