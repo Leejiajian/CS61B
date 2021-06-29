@@ -41,7 +41,8 @@ public class ArrayDeque<T> {
             arraySize = capacity;
         items = a;
     }
-    public ArrayDeque(ArrayDeque other){
+    /*
+        public ArrayDeque(ArrayDeque other){
         arraySize = other.arraySize;
         items = (T[])new Object[arraySize];
         System.arraycopy(other.items,0, items, 0, arraySize);
@@ -49,6 +50,8 @@ public class ArrayDeque<T> {
         nextFirst = other.nextFirst;
         loadingRadio = other.loadingRadio;
     }
+    */
+
     public void addFirst(T item){
         if(size() == arraySize - 1)
             resize(SIZE_PROPORTION * arraySize);
@@ -64,7 +67,7 @@ public class ArrayDeque<T> {
         items[nextLast] = item;
         nextLast = (nextLast + 1) % arraySize;
         if(loadingRadio == 0)
-            nextFirst = (nextFirst - 1) % arraySize;
+            nextFirst = (nextFirst - 1 + arraySize) % arraySize;
         loadingRadio =  ((nextLast - nextFirst - 1 + arraySize) % arraySize)/(double)arraySize;
     }
     public boolean isEmpty(){
@@ -87,7 +90,6 @@ public class ArrayDeque<T> {
             return null;
         nextFirst = (nextFirst + 1) % arraySize;
         T item = items[nextFirst];
-        items[nextFirst] = null;
         loadingRadio = size()/(double)arraySize;
         if(arraySize > INITIAL_SIZE && loadingRadio < 0.25)
             resize((int)(0.5 * arraySize));
@@ -98,7 +100,6 @@ public class ArrayDeque<T> {
             return null;
         nextLast = (nextLast - 1) % arraySize;
         T item = items[nextLast];
-        items[nextLast] = null;
         loadingRadio = size()/(double)arraySize;
         if(arraySize > INITIAL_SIZE && loadingRadio < 0.25)
             resize((int)(0.5 * arraySize));

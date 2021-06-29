@@ -37,7 +37,7 @@ public class LinkedListDeque<T> {
     public int size(){
         return size;
     }
-    public void print(TNode p){
+    private void print(TNode p){
         if(p != sentinel)
             System.out.print(p.item + " ");
         else

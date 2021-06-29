@@ -13,7 +13,7 @@ public class ArrayDequeTest {
         myDeque.addLast("good boy");
         System.out.println("size: " + myDeque.size() + " ArraySize: " );
         myDeque.printDeque();
-        ArrayDeque<String> copyDeque = new ArrayDeque<>(myDeque);
+        ArrayDeque<String> copyDeque = new ArrayDeque<>();
         System.out.println();
         copyDeque.printDeque();
         copyDeque.removeFirst();
