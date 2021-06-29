@@ -104,7 +104,7 @@ public class ArrayDeque<T> {
     public T removeLast(){
         if(isEmpty())
             return null;
-        nextLast = (nextLast - 1) % arraySize;
+        nextLast = (nextLast - 1 + arraySize) % arraySize;
         T item = items[nextLast];
         loadingRadio = size()/(double)arraySize;
         if(loadingRadio == 0)
