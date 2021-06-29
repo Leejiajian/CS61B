@@ -1,115 +1,117 @@
-import java.lang.reflect.Array;
-import java.util.AbstractMap;
-import java.util.concurrent.TransferQueue;
-
 public class ArrayDeque<T> {
     private final int INITIAL_SIZE = 8;
     private static final int SIZE_PROPORTION = 2;
     private T[] items;
-    public int ArraySize;//just test it;
+    private int arraySize;
     private int nextFirst, nextLast;
     private double loadingRadio;
 
-    public int size(){
+    public int size() {
         if(isEmpty())
             return 0;
-        return (nextLast - nextFirst - 1 + ArraySize) % ArraySize;
+        return (nextLast - nextFirst - 1 + arraySize) % arraySize;
     }
-    public ArrayDeque(){
+    public ArrayDeque() {
         items = (T[])new Object[INITIAL_SIZE];
-        ArraySize = INITIAL_SIZE;
+        arraySize = INITIAL_SIZE;
         nextFirst = 0;
         nextLast = 0;
         loadingRadio = 0;
     }
-    private void resize(int capacity){
+    private void resize(int capacity) {
         T[] a = (T[])new Object[capacity];
         if(nextLast > nextFirst){
             System.arraycopy(items,nextFirst+1, a, 0, this.size());
 
-            ArraySize = capacity;
-            loadingRadio = size() / (double)ArraySize;
+            arraySize = capacity;
+            loadingRadio = size() / (double)arraySize;
             nextLast = size();
-            nextFirst = ArraySize - 1;
+            nextFirst = arraySize - 1;
 
         }
-        else if((nextFirst == nextLast && size() > 0) || nextFirst > nextLast){
-            System.arraycopy(items, (nextFirst + 1) % ArraySize,a, 0, ArraySize - 1 - nextFirst);
-            System.arraycopy(items, 0, a, ArraySize - 1 - nextFirst, nextLast);
+        else if((nextFirst == nextLast && size() > 0) || nextFirst > nextLast) {
+            System.arraycopy(items, (nextFirst + 1) % arraySize,a, 0, arraySize - 1 - nextFirst);
+            System.arraycopy(items, 0, a, arraySize - 1 - nextFirst, nextLast);
             loadingRadio = size() /(double)capacity;
             nextLast = size();
             nextFirst = capacity - 1;
-            ArraySize = capacity;
+            arraySize = capacity;
         }
         else
-            ArraySize = capacity;
+            arraySize = capacity;
         items = a;
     }
     public ArrayDeque(ArrayDeque other){
-        ArraySize = other.ArraySize;
-        items = (T[])new Object[ArraySize];
-        System.arraycopy(other.items,0, items, 0, ArraySize);
+        arraySize = other.arraySize;
+        items = (T[])new Object[arraySize];
+        System.arraycopy(other.items,0, items, 0, arraySize);
         nextLast = other.nextLast;
         nextFirst = other.nextFirst;
         loadingRadio = other.loadingRadio;
     }
     public void addFirst(T item){
-        if(size() == ArraySize - 1)
-            resize(SIZE_PROPORTION * ArraySize);
+        if(size() == arraySize - 1)
+            resize(SIZE_PROPORTION * arraySize);
         items[nextFirst] = item;
-        nextFirst = (nextFirst - 1 + ArraySize) % ArraySize;
+        nextFirst = (nextFirst - 1 + arraySize) % arraySize;
         if(isEmpty())
-            nextLast = (nextLast + 1) % ArraySize;
-        loadingRadio =  ((nextLast - nextFirst - 1 + ArraySize) % ArraySize)/(double)ArraySize;
+            nextLast = (nextLast + 1) % arraySize;
+        loadingRadio =  ((nextLast - nextFirst - 1 + arraySize) % arraySize)/(double)arraySize;
     }
     public void addLast(T item){
-        if(size() == ArraySize - 1)
-            resize(SIZE_PROPORTION * ArraySize);
+        if(size() == arraySize - 1)
+            resize(SIZE_PROPORTION * arraySize);
         items[nextLast] = item;
-        nextLast = (nextLast + 1) % ArraySize;
+        nextLast = (nextLast + 1) % arraySize;
         if(loadingRadio == 0)
-            nextFirst = (nextFirst - 1) % ArraySize;
-        loadingRadio =  ((nextLast - nextFirst - 1 + ArraySize) % ArraySize)/(double)ArraySize;
+            nextFirst = (nextFirst - 1) % arraySize;
+        loadingRadio =  ((nextLast - nextFirst - 1 + arraySize) % arraySize)/(double)arraySize;
     }
     public boolean isEmpty(){
-        if(loadingRadio == 0)
+        if(loadingRadio == 0.0)
             return true;
         return false;
     }
     public void printDeque(){
         if(isEmpty())
             return;
-        int point = (nextFirst + 1) % ArraySize;
+        int point = (nextFirst + 1) % arraySize;
 
         while(point != nextLast){
             System.out.print(items[point] + " ");
-            point = (point + 1) % ArraySize;
+            point = (point + 1) % arraySize;
         }
     }
     public T removeFirst(){
         if(isEmpty())
             return null;
-        nextFirst = (nextFirst + 1) % ArraySize;
+        nextFirst = (nextFirst + 1) % arraySize;
         T item = items[nextFirst];
-        loadingRadio = size()/(double)ArraySize;
-        if(ArraySize > INITIAL_SIZE && loadingRadio < 0.25)
-            resize((int)(0.5 * ArraySize));
+        items[nextFirst] = null;
+        loadingRadio = size()/(double)arraySize;
+        if(arraySize > INITIAL_SIZE && loadingRadio < 0.25)
+            resize((int)(0.5 * arraySize));
         return item;
     }
     public T removeLast(){
         if(isEmpty())
             return null;
-        nextLast = (nextLast - 1) % ArraySize;
+        nextLast = (nextLast - 1) % arraySize;
         T item = items[nextLast];
-        loadingRadio = size()/(double)ArraySize;
-        if(ArraySize > INITIAL_SIZE && loadingRadio < 0.25)
-            resize((int)(0.5 * ArraySize));
+        items[nextLast] = null;
+        loadingRadio = size()/(double)arraySize;
+        if(arraySize > INITIAL_SIZE && loadingRadio < 0.25)
+            resize((int)(0.5 * arraySize));
         return item;
     }
     public T get(int index){
-        if(index < 0 || index >= size())
+        if(isEmpty())
             return null;
-        return items[(nextFirst + index + 1) % ArraySize];
+        if(nextLast > nextFirst && (index <= nextFirst || index >= nextLast))
+            return null;
+        if(nextFirst > nextFirst && (index >= nextLast || index <= nextFirst))
+            return null;
+        return items[(nextFirst + index + 1) % arraySize];
     }
 
 

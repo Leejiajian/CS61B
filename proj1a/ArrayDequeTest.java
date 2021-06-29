@@ -1,7 +1,7 @@
 public class ArrayDequeTest {
     public static void main(String[] args) {
         ArrayDeque<String> myDeque = new ArrayDeque<>();
-        System.out.println("size: " + myDeque.size() + " ArraySize: " + myDeque.ArraySize);
+        System.out.println("size: " + myDeque.size() + " ArraySize: " );
         myDeque.addLast("hello");
         myDeque.addLast("good job");
         myDeque.addLast("lijiajian");
@@ -11,7 +11,7 @@ public class ArrayDequeTest {
         myDeque.addLast("good boy");
         myDeque.addLast("error");
         myDeque.addLast("good boy");
-        System.out.println("size: " + myDeque.size() + " ArraySize: " + myDeque.ArraySize);
+        System.out.println("size: " + myDeque.size() + " ArraySize: " );
         myDeque.printDeque();
         ArrayDeque<String> copyDeque = new ArrayDeque<>(myDeque);
         System.out.println();
@@ -24,5 +24,6 @@ public class ArrayDequeTest {
         copyDeque.printDeque();
         System.out.println();
         System.out.print(copyDeque.get(0));
+        ArrayDeque<Double> DDeque = new ArrayDeque<>();
     }
 }
