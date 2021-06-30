@@ -125,43 +125,21 @@ public class IntList {
      *
      */
     public static IntList reverse(IntList A) {
-        //传入的是指针的副本不能改变原来的指针
-        /*
-        if (A == null)
 
-            return null;
-        IntList nextNewPos,oldPos = A, newPos = A.rest;
-        if (newPos == null)
-            return oldPos;
-        else {
-            nextNewPos = newPos.rest;
-            while(newPos != null) {
-                newPos.rest = oldPos;
-                if(nextNewPos == null)
-                    break;
-                oldPos = newPos;
-                newPos = nextNewPos;
-                nextNewPos = nextNewPos.rest;
-            }
+        IntList frontOfReversed = null;
+        IntList nextNodeToAdd = A;
+        while (nextNodeToAdd != null) {
+            IntList remainderOfOriginal = nextNodeToAdd.rest;
+            nextNodeToAdd.rest = frontOfReversed;
+            frontOfReversed = nextNodeToAdd;
+            nextNodeToAdd = remainderOfOriginal;
         }
-        A.rest = null;
-        A = newPos;
+        A = frontOfReversed;
         return A;
 
-         */
-        if (A == null) {
-            return null;
-        } else if (A.rest == null) {
-            return A;
-        } else {
-            int length = A.size();
-            for (int i = 0; i < (length - i - 1) && i < length; ++i) {
-                int temp = A.get(i).first;
-                A.get(i).first = A.get(length - i - 1).first;
-                A.get(length - i - 1).first = temp;
-            }
-        }
-        return A;
+
+
+
     }
 
 
@@ -174,11 +152,10 @@ public class IntList {
         System.out.println(lst.get(1).first);
 
          */
-        IntList A = IntList.of(1, 2);
-        IntList B = IntList.of(2, 0);
-        IntList C = IntList.of(3, 2, 2);
-        System.out.println(B.equals(reverse(A)));
-        System.out.println(C.equals(IntList.reverse(A)));
+        IntList A = IntList.of(1, 2, 3, 4, 5);
+
+        reverse(A);
+
     }
 
 
